@@ -1,0 +1,39 @@
+# RyxoNET - Advanced Connection Security Plugin Configuration
+
+# Security mode determines how connections are validated.
+# Options:
+#   WHITELIST_ONLY: Only allow connections from whitelisted IPs.
+#   PROXY_PROTECTED: Require valid proxy authentication (passphrase and session).
+#   HYBRID: Combine whitelist and proxy protection.
+#   HOSTNAME_ONLY: Only allow connections using specified hostnames (domain names).
+security-mode: HOSTNAME_ONLY
+
+# Hostname protection settings (for HOSTNAME_ONLY or HYBRID modes)
+hostname:
+  enabled: true
+  allowed-hostnames: # Wildcard support (e.g., any subdomain)
+    - example.com
+    - play.example.com
+  use-reverse-dns: false  # You can put false if you just want the server's IP to be checked
+  server-public-ip: "5.122.46.45" # Write your VPS server's public IP here exactly
+  kick-message: "§cPlease connect using the official domain: §6example.com§c\nDirect IP connections are not allowed."
+
+# IP whitelist settings (for WHITELIST_ONLY or HYBRID modes)
+whitelist:
+  enabled: false
+  ips:
+    - 127.0.0.1
+    - 192.168.1.1
+
+# Proxy protection settings (for PROXY_PROTECTED or HYBRID modes)
+proxy-protection:
+  enabled: false
+  passphrase: "change_to_a_secure_random_string_987654321"
+  session-expiry-seconds: 600  # Session key expiry in seconds
+
+# Logging configuration
+logging:
+  level: INFO  # DEBUG, INFO, WARN, ERROR
+  log-blocked-connections: true
+  log-allowed-connections: false
+  log-hostname-details: true  # Log detailed hostname resolution attempts
